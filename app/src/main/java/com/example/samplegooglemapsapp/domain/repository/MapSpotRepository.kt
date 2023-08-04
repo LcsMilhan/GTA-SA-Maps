@@ -8,6 +8,8 @@ interface MapSpotRepository {
 
     suspend fun deleteMapSpot(spot: MapSpot)
 
+    suspend fun deleteAllMapSpots()
+
     fun getMapSpots(): Flow<List<MapSpot>>
 
 }

@@ -1,6 +1,6 @@
 package com.example.samplegooglemapsapp.data.repository
 
-import com.example.samplegooglemapsapp.data.MapSpotDao
+import com.example.samplegooglemapsapp.data.local.MapSpotDao
 import com.example.samplegooglemapsapp.data.toMapSpot
 import com.example.samplegooglemapsapp.data.toMapSpotEntity
 import com.example.samplegooglemapsapp.domain.model.MapSpot
@@ -18,6 +18,10 @@ class MapSpotRepositoryImpl @Inject constructor(
 
     override suspend fun deleteMapSpot(spot: MapSpot) {
         dao.deleteMapSpot(spot.toMapSpotEntity())
+    }
+
+    override suspend fun deleteAllMapSpots() {
+        dao.deleteAllMapSpots()
     }
 
     override fun getMapSpots(): Flow<List<MapSpot>> {

@@ -1,5 +1,7 @@
 package com.example.samplegooglemapsapp.presentation.screens
 
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -32,6 +34,7 @@ fun LocationPermissionScreen(
                 return@forEach
             }
         }
+
         if (isGranted) {
             onPermissionGranted()
         }
@@ -54,8 +57,8 @@ fun LocationPermissionScreen(
             onClick = {
                 locationPermissionLauncher.launch(
                     arrayOf(
-                        android.Manifest.permission.ACCESS_FINE_LOCATION,
-                        android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                        ACCESS_FINE_LOCATION,
+                        ACCESS_COARSE_LOCATION,
                     )
                 )
             }
@@ -63,5 +66,4 @@ fun LocationPermissionScreen(
             Text(text = "Grant Location Permission")
         }
     }
-
 }

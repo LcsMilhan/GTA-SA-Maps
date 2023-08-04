@@ -1,4 +1,4 @@
-package com.example.samplegooglemapsapp.data
+package com.example.samplegooglemapsapp.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

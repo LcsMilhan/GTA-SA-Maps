@@ -1,4 +1,4 @@
-package com.example.samplegooglemapsapp.data
+package com.example.samplegooglemapsapp.data.local
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -14,7 +14,10 @@ interface MapSpotDao {
     suspend fun insertMapSpot(spot: MapSpotEntity)
 
     @Delete
-    fun deleteMapSpot(spot: MapSpotEntity)
+    suspend fun deleteMapSpot(spot: MapSpotEntity)
+
+    @Query("DELETE FROM mapentity")
+    suspend fun deleteAllMapSpots()
 
     @Query("SELECT * FROM mapentity")
     fun getMapSpots(): Flow<List<MapSpotEntity>>
