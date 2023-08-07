@@ -22,10 +22,12 @@ fun checkForPermission(context: Context): Boolean {
 }
 
 @SuppressLint("MissingPermission")
-fun getCurrentLocation(context: Context, onLocationFetched: (location: LatLng) -> Unit) {
+fun getCurrentLocation(
+    context: Context,
+    onLocationFetched: (location: LatLng) -> Unit,
+) {
     var loc: LatLng
     val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-
     fusedLocationClient.lastLocation
         .addOnSuccessListener { location: Location? ->
             if (location != null) {

@@ -34,7 +34,6 @@ fun LocationPermissionScreen(
                 return@forEach
             }
         }
-
         if (isGranted) {
             onPermissionGranted()
         }

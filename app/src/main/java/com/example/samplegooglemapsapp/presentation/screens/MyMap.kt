@@ -16,9 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -31,7 +29,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
-import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
 
@@ -40,15 +37,11 @@ fun MyMap(
     latLng: LatLng,
     viewModel: MapViewModel = hiltViewModel()
 ) {
-    val latLngList = remember {
-        mutableStateListOf(latLng)
-    }
-
     val showClearConfirmationDialog by viewModel.showClearConfirmationDialog.collectAsState()
     val state by viewModel.state.collectAsState()
 
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(latLng, 4f)
+        position = CameraPosition.fromLatLngZoom(latLng, 15f)
     }
 
     val uiSettings = remember {
@@ -92,9 +85,8 @@ fun MyMap(
         floatingActionButton = {
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
-                horizontalAlignment = Alignment.End,
                 modifier = Modifier
-                    .padding(bottom = 30.dp)
+                    .padding(bottom = 70.dp)
             ) {
                 // Toggle GTA SA Map
                 FloatingActionButton(
@@ -128,14 +120,13 @@ fun MyMap(
         Column {
             GoogleMap(
                 contentPadding = paddingValues,
+                cameraPositionState = cameraPositionState,
                 uiSettings = uiSettings,
-                properties = state.properties,
+                properties = state.properties.copy(
+                    isMyLocationEnabled = true,
+                ),
                 onMapLongClick = {
                     viewModel.onEvent(MapEvent.OnMapLongClick(it))
-                },
-                cameraPositionState = cameraPositionState,
-                onMapClick = {
-                    latLngList.add(it)
                 }
             ) {
                 state.mapSpots.forEach { spot ->
@@ -156,14 +147,6 @@ fun MyMap(
                             BitmapDescriptorFactory.HUE_MAGENTA
                         )
                     )
-                    latLngList.toList().forEach {
-                        Marker(
-                            state = MarkerState(position = it),
-                            title = "My Position",
-                            snippet = "Marker in current location",
-                        )
-                    }
-
                 }
 
             }
