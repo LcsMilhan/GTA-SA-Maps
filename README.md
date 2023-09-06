@@ -1,3 +1,7 @@
+Prints
+-
+![MAPS](https://github.com/LcsMilhan/SampleGoogleMaps/assets/128747056/9955823a-f780-49d4-a867-f0492127821d)
+
 Features
 -
 - Requests access to your device's location services, allowing you to interact with maps and features that depend on real-time location data.
